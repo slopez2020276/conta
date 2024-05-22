@@ -61,8 +61,8 @@ function editarhistoria(req,res){
                 Historia.findByIdAndUpdate(idHistoria,{EncalceVideo,DescripcionHistoria,imgPathPrincipal:req.file.path },{new:true},(err,historiaUpdated)=>{
                     if(err){
                         return res.status(200).send({messege:'error en la petion 2'})
-                    }else if (historiaUpdated){
-                        return res.status(200).send({lineaUpdated:historiaUpdated})
+                    }else if (historiaUpdated){                        return res.status(200).send({lineaUpdated:historiaUpdated})
+
                     }else{
                         return res.status(200).send({message:'error al editar'})
                     }
