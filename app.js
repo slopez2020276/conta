@@ -5,7 +5,11 @@ const path = require('path')
 const app = express();
 
 // IMPORTACION RUTAS
+
 const librodiario = require('./src/routes/librodiario.routes');
+const cuentas = require('./src/routes/cuentas.routes');
+const usuario = require('./src/routes/usuario.routes')
+
 
 // MIDDLEWARES
 
@@ -19,7 +23,7 @@ app.use(cors());
 
 // CARGA DE RUTAS localhost:3000/api/productos
 
-app.use("/api",librodiario)
+app.use("/api",librodiario,cuentas,usuario)
 
 app.use('/uploads',express.static(path.resolve('uploads')));
 app.use('/imgsDefult',express.static(path.resolve('imgsDefult')));

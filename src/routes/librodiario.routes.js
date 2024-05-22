@@ -1,9 +1,8 @@
+// routes/libroDiarioRoutes.js
 const express = require('express');
-const Controller = require('../controllers/libroDiario.controller');
+const router = express.Router();
+const libroDiarioController = require('../controllers/libroDiario.controller');
 
-const api = express.Router();
+router.post('/registrarEntrada', libroDiarioController.registrarTransaccion);
 
-api.post('/nuevaEntrada',Controller.registrarTransaccion)
-
-
-module.exports = api; 
+module.exports = router;
