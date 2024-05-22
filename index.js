@@ -24,7 +24,7 @@ mongoose.connect('mongodb://localhost/contaUmg', {
   })
   .then(() => {
     console.log("Se ha conectado correctamente a la base de datos.");
-    const PORT = process.env.PORT || 3009;
+    const PORT = process.env.PORT || 3000;
     app.listen(PORT, function () {
       console.log(
         'El servidor está levantado en el puerto ' + PORT

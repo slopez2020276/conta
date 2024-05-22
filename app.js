@@ -8,8 +8,16 @@ const app = express();
 
 const librodiario = require('./src/routes/librodiario.routes');
 const cuentas = require('./src/routes/cuentas.routes');
-const usuario = require('./src/routes/usuario.routes')
+const usuario = require('./src/routes/usuario.routes');
+const partida = require('./src/routes/partida.routes');	
 
+
+
+const partidasRoutes = require('./src/routes/partida.routes');
+const cuentasRoutes = require('./src/routes/cuentas.routes');
+const libroMayorRoutes = require('./src/routes/libroMayor.routes');
+const balanceSaldosRoutes = require('./src/routes/balanceSaldos.routes');
+const estadoResultadosRoutes = require('./src/routes/balanceResultados..routes');
 
 // MIDDLEWARES
 
@@ -21,9 +29,18 @@ app.use(express.json());
 // CABECERAS
 app.use(cors());
 
+// Importar y usar rutas
+
+app.use('/api/partidas', partidasRoutes);
+app.use('/api/cuentas', cuentasRoutes);
+app.use('/api/libroMayor', libroMayorRoutes);
+app.use('/api/estadoResultados', estadoResultadosRoutes);
+app.use('/api/balance', balanceSaldosRoutes);
+app.use('/api/balance', estadoResultadosRoutes);
+
+
 // CARGA DE RUTAS localhost:3000/api/productos
 
-app.use("/api",librodiario,cuentas,usuario)
 
 app.use('/uploads',express.static(path.resolve('uploads')));
 app.use('/imgsDefult',express.static(path.resolve('imgsDefult')));
