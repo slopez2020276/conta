@@ -13,7 +13,7 @@ mongoose.set('strictQuery', false);  // Añade esta línea para evitar la advert
 
 
 
-mongoose.connect('mongodb://localhost/contaUmg', {
+mongoose.connect('mongodb+srv://dev:dev@umgcontable.kenlbmj.mongodb.net/?retryWrites=true&w=majority&appName=UmgContable', {
     //'mongodb://localhost/procasa'
     //mongodb+srv://desjr:desjr@cluster0.qmiwvug.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
         //mongodb+srv://desjr:desjr@interno.g3fzrlc.mongodb.net/?retryWrites=true&w=majority&appName=Interno
