@@ -18,6 +18,7 @@ const cuentasRoutes = require('./src/routes/cuentas.routes');
 const libroMayorRoutes = require('./src/routes/libroMayor.routes');
 const balanceSaldosRoutes = require('./src/routes/balanceSaldos.routes');
 const estadoResultadosRoutes = require('./src/routes/balanceResultados..routes');
+const balanceGenealRoutes = require('./src/routes/balanceGenral.routes');
 
 // MIDDLEWARES
 
@@ -37,6 +38,7 @@ app.use('/api/libroMayor', libroMayorRoutes);
 app.use('/api/estadoResultados', estadoResultadosRoutes);
 app.use('/api/balance', balanceSaldosRoutes);
 app.use('/api/balance', estadoResultadosRoutes);
+app.use('/api/balance', balanceGenealRoutes);
 
 
 // CARGA DE RUTAS localhost:3000/api/productos
