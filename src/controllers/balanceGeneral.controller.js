@@ -33,7 +33,7 @@ const generarBalanceGeneral = async (req, res) => {
           }
           balanceGeneral.pasivos[cuentaNombre] += asiento.haber - asiento.debe;
           balanceGeneral.totalPasivos += asiento.haber - asiento.debe;
-        } else if (tipoCuenta === 'Patrimonio') {
+        } else if (tipoCuenta === 'Capital') {
           if (!balanceGeneral.patrimonio[cuentaNombre]) {
             balanceGeneral.patrimonio[cuentaNombre] = 0;
           }

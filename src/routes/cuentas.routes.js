@@ -8,7 +8,9 @@ router.post('/', async (req, res) => {
         const { nombre, tipo, saldo } = req.body;
         const nuevaCuenta = new Cuenta({ nombre, tipo, saldo  });
         await nuevaCuenta.save();
+        console.log(req.body)
         res.status(201).json(nuevaCuenta);
+
     } catch (error) {
         res.status(500).json({ message: 'Error al crear la cuenta', error });
     }
