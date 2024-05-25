@@ -43,10 +43,72 @@ const generarBalanceGeneral = async (req, res) => {
       });
     });
 
+    // Obtener el balance de resultados
+    const balanceResultados = await obtenerBalanceResultados();
+
+    // Ajustar el patrimonio según el resultado del balance de resultados
+    if (balanceResultados.resultado < 0) {
+      balanceGeneral.patrimonio['Pérdidas'] = balanceResultados.resultado;
+      balanceGeneral.totalPatrimonio += balanceResultados.resultado; // restar porque es negativo
+    } else {
+      balanceGeneral.patrimonio['Utilidades'] = balanceResultados.resultado;
+      balanceGeneral.totalPatrimonio += balanceResultados.resultado;
+    }
+
     res.json(balanceGeneral);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
+
+// Función auxiliar para obtener el balance de resultados
+const obtenerBalanceResultados = async () => {
+  try {
+    const partidas = await Partida.find().populate('asientos.cuenta');
+
+    let ingresos = 0;
+    let gastos = 0;
+    const ingresosPorCuenta = {};
+    const gastosPorCuenta = {};
+
+    partidas.forEach(partida => {
+      partida.asientos.forEach(asiento => {
+        const tipoCuenta = asiento.cuenta.tipo;
+        const cuentaNombre = asiento.cuenta.nombre;
+        
+        if (tipoCuenta === 'Ingreso') {
+          ingresos += asiento.haber - asiento.debe;
+          if (!ingresosPorCuenta[cuentaNombre]) {
+            ingresosPorCuenta[cuentaNombre] = 0;
+          }
+          ingresosPorCuenta[cuentaNombre] += asiento.haber - asiento.debe;
+        } else if (tipoCuenta === 'Gasto') {
+          gastos += asiento.debe - asiento.haber;
+          if (!gastosPorCuenta[cuentaNombre]) {
+            gastosPorCuenta[cuentaNombre] = 0;
+          }
+          gastosPorCuenta[cuentaNombre] += asiento.debe - asiento.haber;
+        }
+      });
+    });
+
+    const resultado = ingresos - gastos;
+
+    return {
+      ingresos: {
+        total: ingresos,
+        cuentas: ingresosPorCuenta
+      },
+      gastos: {
+        total: gastos,
+        cuentas: gastosPorCuenta
+      },
+      resultado
+    };
+  } catch (err) {
+    throw new Error('Error al obtener el balance de resultados');
+  }
+};
+
 
 module.exports = { generarBalanceGeneral };
